@@ -13,9 +13,7 @@ app.get('/stream', function(req, res) {
 });
 
 var io = require('socket.io').listen(http);
-var c2i='';
-var camera= new cv.VideoCapture('rtsp://admin:admin@140.113.179.14:8088/channel1');
-cam2img();
+
 
 io.sockets.on('connection',function(socket){
     socket.emit('frame', { buffer:""});
@@ -25,8 +23,7 @@ io.sockets.on('connection',function(socket){
       //if (err) throw err;
             axios({
               method: 'get',
-              url: 'http://localhost:4002/',
-              data:{imarray:c2i.toArray()},
+              url: 'http://localhost:4002/NCTUstream',
             }).then(function(response,err){
               //console.log('axios res');
               //console.log(response.data);
@@ -42,11 +39,4 @@ io.sockets.on('connection',function(socket){
 
   });
 });
-function cam2img() {
-  camera.read(function(err, im) {
-    if (err) throw err;
-        c2i=im;
-        cam2img();
-  });
 
-}
