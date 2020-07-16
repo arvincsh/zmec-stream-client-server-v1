@@ -20,22 +20,33 @@
 </head>
 <body>
   <div>
+    <span> Server Path: </span>
+    <input type="text" value="" id="serverurl"></input>&nbsp;
+    <button onclick="submit();">submit</button>
+  </div>
+
+  <div>
     <canvas id="canvas" width="640" height="480"></canvas>
   </div>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    var socket = io.connect();
-    var img = new Image();
-    socket.on('frame', function (data) {
-      img.onload = function () {
-        context.drawImage(this, 0, 0, canvas.width, canvas.height);
-      };
-      img.src = 'data:image/png;base64,' + data.buffer;
-      socket.emit('req');
 
-    });
+    function submit(){
+      var socket = io.connect();
+      socket.emit('path',{hosturl:document.getElementById("serverurl").value});
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var img = new Image();
+      socket.on('frame', function (data) {
+        img.onload = function () {
+          context.drawImage(this, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = 'data:image/png;base64,' + data.buffer;
+        //setTimeout(function(){
+          socket.emit('path',{hosturl:document.getElementById("serverurl").value});
+        //},100);
+      });
+    }
   </script>
 </body>
 </html>
