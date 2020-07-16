@@ -22,7 +22,7 @@ io.sockets.on('connection',function(socket){
       //if (err) throw err;
             axios({
               method: 'get',
-              url: 'http://localhost:4002/NCTUstream',
+              url: 'http://192.168.173.181.xip.io/NCTUstream',
             }).then(function(response,err){
               //console.log('axios res');
               //console.log(response.data);
