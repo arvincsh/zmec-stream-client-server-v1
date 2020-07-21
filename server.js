@@ -1,7 +1,6 @@
 var express = require('express');
 var app = require('express')();
 var http = require('http').createServer(app);
-var cv = require('opencv');
 var axios = require('axios');
 
 http.listen(3002, function() {
