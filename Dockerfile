@@ -20,4 +20,4 @@ RUN apt-get install -y tzdata
 
 RUN sudo npm install 
 
-CMD [ "node", "/home/work/zmec-stream-client-server-v1/server.js" ]
+CMD [ "node", "/home/work/zmec-stream-client-server-v1/app.js" ]
