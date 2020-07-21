@@ -20,11 +20,16 @@
 </head>
 <body>
   <div>
-    <span> Server Path: </span>
+    <span> Server Path: http://</span>
     <input type="text" value="" id="serverurl"></input>&nbsp;
     <button onclick="submit();">submit</button>
   </div>
-
+  <div>
+    <select id="lb" style="font-size:60px">
+      <option value="stream">No</option>
+      <option value="NCTUstream">Yes</option>
+    </select>
+  </div>
   <div>
     <canvas id="canvas" width="640" height="480"></canvas>
   </div>
@@ -33,7 +38,7 @@
 
     function submit(){
       var socket = io.connect();
-      socket.emit('path',{hosturl:document.getElementById("serverurl").value});
+      socket.emit('path',{hosturl:document.getElementById("serverurl").value+'/'+document.getElementById("lb")});
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
       var img = new Image();
@@ -43,7 +48,7 @@
         };
         img.src = 'data:image/png;base64,' + data.buffer;
         //setTimeout(function(){
-          socket.emit('path',{hosturl:document.getElementById("serverurl").value});
+      socket.emit('path',{hosturl:document.getElementById("serverurl").value+'/'+document.getElementById("lb")});
         //},100);
       });
     }
